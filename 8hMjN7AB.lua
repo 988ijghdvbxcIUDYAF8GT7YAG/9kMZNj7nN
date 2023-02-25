@@ -709,10 +709,10 @@ end
 function EspInterface.getWeapon(player)
 	local character = EspInterface.getCharacter(player);
 	local weapon = character and character:FindFirstChild("Weapon");
-	if not character or not weapon then 
+	local weaponName = weapon and weapon:FindFirstChild("WeaponName");
+	if not character or not weapon or not weaponName then 
 		return "Unknown"; 
 	end;
-	local weaponName = weapon:FindFirstChild("WeaponName");
 	return weaponName.Value;
 end
 
