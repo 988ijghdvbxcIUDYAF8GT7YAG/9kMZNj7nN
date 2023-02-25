@@ -708,8 +708,8 @@ end
 -- game specific functions
 function EspInterface.getWeapon(player)
 	local character = EspInterface.getCharacter(player);
-	local weapon = character and character:FindFirstChild("Weapon");
-	local weaponName = weapon and weapon:FindFirstChild("WeaponName");
+	local weapon = character and findFirstChild(character, "Weapon");
+	local weaponName = weapon and findFirstChild(weapon, "WeaponName");
 	if not character or not weapon or not weaponName then 
 		return "Unknown"; 
 	end;
