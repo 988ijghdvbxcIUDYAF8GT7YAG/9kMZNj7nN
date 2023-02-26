@@ -717,7 +717,10 @@ function EspInterface.getWeapon(player)
 end
 
 function EspInterface.isFriendly(player)
-	return player.Team and player.Team == localPlayer.Team;
+	local permanentTeam = findFirstChild(player, "PermanentTeam");
+	local localPermanentTeam = findFirstChild(localPlayer, "PermanentTeam");
+	
+	return permanentTeam and permanentTeam.Value == localPermanentTeam.Value;
 end
 
 function EspInterface.getCharacter(player)
