@@ -1,16 +1,4 @@
 -- rushpoint support
-local oldInfo; oldInfo = hookfunction(getrenv().debug.info, function(...)
-    local stack, func = ...;
-    local returnValue = oldInfo(...);
-    if stack == 2 and func == "s" then
-        if returnValue == "[C]" then
-            return returnValue;
-        end;
-        return "MapManager";
-    end;
-    return returnValue;
-end);
-
 local getCharacter = filtergc("function", {
     Name = "GetCharacter";
 }, true);
