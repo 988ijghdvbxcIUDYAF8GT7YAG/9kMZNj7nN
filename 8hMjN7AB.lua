@@ -1,7 +1,5 @@
 -- rushpoint support
-local getCharacter = filtergc("function", {
-    Name = "GetCharacter";
-}, true);
+local characterHandler = shared.CharacterHandler;
 
 -- services
 local runService = game:GetService("RunService");
@@ -711,7 +709,7 @@ function EspInterface.isFriendly(player)
 end
 
 function EspInterface.getCharacter(player)
-	return getCharacter(player);
+	return characterHandler:GetCharacter(player);
 end
 
 function EspInterface.getHealth(character)
