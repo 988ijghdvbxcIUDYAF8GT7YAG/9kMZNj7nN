@@ -24,6 +24,7 @@ local cos = math.cos;
 local clear = table.clear;
 local unpack = table.unpack;
 local find = table.find;
+local create = table.create;
 
 -- methods
 local wtvp = camera.WorldToViewportPoint;
@@ -84,7 +85,7 @@ local function worldToScreen(world)
 end
 
 local function calculateCorners(cframe, size)
-	local corners = table.create(#VERTICES);
+	local corners = create(#VERTICES);
 	for i = 1, #VERTICES do
 		corners[i] = worldToScreen((cframe + size*0.5*VERTICES[i]).Position);
 	end
@@ -181,8 +182,8 @@ end
 function EspObject:Destruct()
 	self.renderConnection:Disconnect();
 
-	for _, drawing in next, self.bin do
-		drawing:Remove();
+	for i = 1, #self.bin do
+		self.bin[i]:Remove();
 	end
 
 	clear(self);
@@ -662,15 +663,13 @@ function EspInterface.Load()
 			for i = 1, #object do
 				object[i]:Destruct();
 			end
-
 			EspInterface._objectCache[player] = nil;
 		end
 	end
 
-	for _, player in next, players:GetPlayers() do
-		if player ~= localPlayer then
-			createObject(player);
-		end
+	local plrs = players:GetPlayers();
+	for i = 2, #plrs do
+		createObject(plrs[i]);
 	end
 
 	EspInterface.playerAdded = players.PlayerAdded:Connect(createObject);
@@ -681,10 +680,11 @@ end
 function EspInterface.Unload()
 	assert(EspInterface._hasLoaded, "Esp has not been loaded yet.");
 
-	for _, object in next, EspInterface._objectCache do
+	for index, object in next, EspInterface._objectCache do
 		for i = 1, #object do
 			object[i]:Destruct();
 		end
+		EspInterface._objectCache[index] = nil;
 	end
 
 	EspInterface.playerAdded:Disconnect();
