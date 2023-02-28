@@ -56,7 +56,7 @@ local VERTICES = {
 };
 
 -- rush point support
-local bac = findFirstChild(ReplicatedStorage, "BAC");
+local bac = findFirstChild(replicatedStorage, "BAC");
 local characters = findFirstChild(bac, "Characters");
 local CHARACTERS_SENV = getsenv(characters);
 local newChar = CHARACTERS_SENV.NewChar;
