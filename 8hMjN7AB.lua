@@ -1,9 +1,12 @@
+-- rushpoint support
+local getCharacter = filtergc("function", {
+    Name = "GetCharacter";
+}, true);
 
 -- services
 local runService = game:GetService("RunService");
 local players = game:GetService("Players");
 local workspace = game:GetService("Workspace");
-local replicatedStorage = game:GetService("ReplicatedStorage");
 
 -- variables
 local localPlayer = players.LocalPlayer;
@@ -54,12 +57,6 @@ local VERTICES = {
 	Vector3.new(1, 1, 1),
 	Vector3.new(1, -1, 1)
 };
-
--- rush point support
-local bac = findFirstChild(replicatedStorage, "BAC");
-local characters = findFirstChild(bac, "Characters");
-local CHARACTERS_SENV = getsenv(characters);
-local newChar = CHARACTERS_SENV.NewChar;
 
 -- functions
 local function isBodyPart(name)
@@ -714,8 +711,7 @@ function EspInterface.isFriendly(player)
 end
 
 function EspInterface.getCharacter(player)
-	local character = getupvalue(newChar, 1)[player];
-	return character;
+	return getCharacter(player);
 end
 
 function EspInterface.getHealth(character)
